@@ -17,7 +17,7 @@ params = urllib.parse.quote_plus(connection_string)
 SQLALCHEMY_DATABASE_URL = f"mssql+pyodbc:///?odbc_connect={params}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-base = declarative_base()
+Base = declarative_base()
 
 def get_db():
     db = sessionlocal()

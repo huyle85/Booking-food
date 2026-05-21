@@ -9,29 +9,29 @@ class User(Base):
     username = Column(String(50), unique=True, index=True, nullable=False)
     hash_password = Column(String(255), nullable=False)
     role = Column(String(20), default="user")
-    bills = relationship("Bill", back_populates="cuustomer")
+    bills = relationship("Bill", back_populates="customer")
 
 class Food(Base):
     __tablename__ = "foods"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
     price = Column(Float, nullable=False)
-    is_avl = Column(Boolean, default=True)
-    bill_datail = relationship("BillDetail", back_populates="food")
+    is_available = Column(Boolean, default=True)
+    bill_details = relationship("BillDetail", back_populates="food")
 
 class Bill(Base):
-    __table__ = "bills"
+    __tablename__ = "bills"
     id = Column(Integer, primary_key=True, index=True)
     table_number = Column(Integer, nullable=False, index=True)
     total_price = Column(Float, default=0.0)
     is_paid = Column(Boolean, default=False)
-    create_at = Column(datetime, default=lambda: datetime.now(timezone.utc))
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
+    create_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     customer = relationship("User", back_populates="bills")
-    details = relationship("BillDetail", back_populates="bill", cascade="all, delete-orphan")
+    details = relationship("BillDetail", back_populates="bill", cascade="all, delete-orphan") #delete bill is not exist detail bill okkk
 
-class BillDatail(Base):
-    __tablename__ = "bill_detail"
+class BillDetail(Base):
+    __tablename__ = "bill_details"
     id = Column(Integer, primary_key=True, index=True)
     bill_id = Column(Integer, ForeignKey("bills.id"), nullable=False)
     food_id = Column(Integer, ForeignKey("foods.id"), nullable=False)
