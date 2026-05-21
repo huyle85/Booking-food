@@ -1,31 +1,35 @@
 Booking Food API
 
-Một ứng dụng Backend hoàn chỉnh cho hệ thống đặt món ăn (Booking Food) được xây dựng bằng **FastAPI**, **SQLAlchemy**, và **Pydantic**. Dự án hỗ trợ đầy đủ các tính năng từ xác thực người dùng, phân quyền cho đến quản lý hóa đơn.
-
-Tính năng 
-- Xác thực người dùng (Authentication): Sử dụng hệ thống mã hóa mật khẩu bảo mật cao kết hợp với **JWT (JSON Web Token)** để cấp Access Token.
-- Phân quyền người dùng (Authorization): Quản lý quyền truy cập linh hoạt thông qua thuộc tính `role` (`user`, `admin`).
-- Quản lý dữ liệu mạnh mẽ: Thiết lập mối quan hệ chặt chẽ giữa các bảng trong Database (ví dụ: Mối quan hệ tự động xóa dữ liệu rác `cascade="all, delete-orphan"` giữa Hóa đơn và Chi tiết hóa đơn).
-- Kiểm thử trực quan:** Tích hợp sẵn Swagger UI để test API trực tiếp một cách dễ dàng.
+A complete Backend application for a food ordering and booking system built with **FastAPI**, **SQLAlchemy**, and **Pydantic**. This project includes essential features ranging from user authentication and role-based access control to complex relational database management.
 
 ---
 
-📁 Cấu trúc thư mục dự án
+## Key Features
+
+- **User Authentication:** Implements a highly secure password-hashing mechanism combined with **JWT (JSON Web Tokens)** for issuing temporary Access Tokens.
+- **Role-Based Authorization:** Flexible access management utilizing a `role` field (`user`, `admin`) to restrict or grant permissions to specific API routes.
+- **Robust Data Relationships:** Utilizes SQLAlchemy ORM to handle data integrity, featuring an automated cleanup mechanism (`cascade="all, delete-orphan"`) between the `Bill` and `BillDetail` tables to prevent orphaned data.
+- **Interactive API Documentation:** Built-in integration with Swagger UI, allowing you to test out all the API endpoints directly from your browser.
+
+---
+
+## 📁 Project Directory Structure
+
 ```text
 Booking-food/
 │
 ├── app/
 │   ├── __init__.py
-│   ├── main.py          # Điểm khởi chạy ứng dụng (FastAPI Instance)
-│   ├── database.py      # Cấu hình kết nối Cơ sở dữ liệu (SQLAlchemy)
-│   ├── models.py        # Định nghĩa các bảng Database (ORM Models)
-│   ├── schemas.py       # Định nghĩa cấu trúc dữ liệu đầu vào/đầu ra (Pydantic Models)
-│   └── auth.py          # Xử lý Logic xác thực, băm mật khẩu & giải mã JWT Token
+│   ├── main.py          # Application entry point (FastAPI instance)
+│   ├── database.py      # Database connection and session configuration (SQLAlchemy)
+│   ├── models.py        # Database ORM model definitions (Tables)
+│   ├── schemas.py       # Pydantic models for data validation (Request/Response bodies)
+│   └── auth.py          # Authentication logic, password hashing & JWT handling
 │
 ├── routers/
 │   ├── __init__.py
-│   ├── admin.py         # Các API dành riêng cho quản trị viên
-│   └── user.py          # Các API dành cho người dùng thông thường
+│   ├── admin.py         # API endpoints reserved for administrators
+│   └── user.py          # API endpoints for regular customers
 │
-├── docs.txt             # Tài liệu ghi chú dự án
-└── README.md            # Hướng dẫn sử dụng dự án
+├── docs.txt             # Project documentation notes
+└── README.md            # Setup and project guide
