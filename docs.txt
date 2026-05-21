@@ -1,6 +1,10 @@
+python -m venv venv
+.\venv\Scripts\activate
 pip install fastapi uvicorn sqlalchemy pyodbc python-jose[cryptography] passlib[bcrypt] pydantic
 
 restaurant_booking/
+|
+├──venv/
 │
 ├── app/
 │   ├── __init__.py

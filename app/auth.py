@@ -6,7 +6,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from .database import get_db
-from .import models
+from . import models
 
 SECRET_KEY = "siu_mat_khau_hihi"
 ALGORITHM = "HS256"
@@ -26,6 +26,5 @@ def create_access_token(data: dict, expires_delta: Optional[timedalta] = None):
     expire = datetime.now(timezone.utc) + (expires_delta if expires_delta else timedalta(minutes=ACCESS_TOKEN))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
 
 
