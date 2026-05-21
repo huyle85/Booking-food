@@ -8,21 +8,19 @@ router = APIRouter(
     tags=["Admin - Quản lý món ăn"]
 )
 
-# 1. API: Thêm món ăn mới (Chỉ Admin mới có quyền)
+
 @router.post("/foods", response_model=schemas.FoodResponse, status_code=status.HTTP_201_CREATED)
 def create_food(
-    food_in: schemas.FoodCreate,  # Nhận dữ liệu JSON từ Body gửi lên (KHÔNG dùng Depends ở đây)
+    food_in: schemas.FoodCreate, 
     db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_user)  # Xác thực quyền Token Admin
+    current_user: models.User = Depends(auth.get_current_user)
 ):
-    # Kiểm tra phân quyền: Phải là admin mới cho qua
     if current_user.role != "admin":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, 
             detail="Bạn không có quyền thực hiện hành động này"
         )
-        
-    # Tạo đối tượng Food để lưu xuống database SQL Server
+
     new_food = models.Food(
         name=food_in.name,
         price=food_in.price,
@@ -41,8 +39,6 @@ def create_food(
             detail=f"Lỗi khi lưu vào Database: {str(e)}"
         )
 
-
-# 2. API: Xem danh sách tất cả món ăn (Dành cho Admin quản lý)
 @router.get("/foods", response_model=list[schemas.FoodResponse])
 def get_all_foods_admin(
     db: Session = Depends(get_db),
@@ -54,8 +50,6 @@ def get_all_foods_admin(
     foods = db.query(models.Food).all()
     return foods
 
-
-# 3. API: Xóa món ăn theo ID
 @router.delete("/foods/{food_id}")
 def delete_food(
     food_id: int, 
