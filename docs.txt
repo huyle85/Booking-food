@@ -2,19 +2,4 @@ python -m venv venv
 .\venv\Scripts\activate
 pip install fastapi uvicorn sqlalchemy pyodbc python-jose[cryptography] passlib[bcrypt] pydantic
 
-restaurant_booking/
-|
-├──venv/
-│
-├── app/
-│   ├── __init__.py
-│   ├── main.py          # File chạy chính của ứng dụng
-│   ├── database.py      # Cấu hình kết nối SQL Server
-│   ├── models.py        # Định nghĩa các bảng Database (SQLAlchemy)
-│   ├── schemas.py       # Định nghĩa dữ liệu đầu vào/đầu ra (Pydantic)
-│   ├── auth.py          # Xử lý Đăng nhập, JWT, Phân quyền
-│   │
-│   └── routers/         # Nơi chứa các file API chia theo cụm chức năng
-│       ├── __init__.py
-│       ├── admin_food.py  # API Thêm, sửa, xóa món của Admin
-│       └── user_order.py  # API Xem menu, đặt món, gọi thêm món của User
+
